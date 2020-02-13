@@ -51,7 +51,8 @@
 ## 4 API调用顺序
 
 ### *4.1总体次序*
-![image](img\flowsheet.png)
+
+### ![image](.\img\flowsheet.png)
 
 ## 5 函数说明
 
