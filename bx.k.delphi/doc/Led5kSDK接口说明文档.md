@@ -474,36 +474,6 @@ SCREEN_SendSound:function(dwHand:Cardinal;sound:Tbx_5k_sound;TextLen:Integer;Are
 
 ## 附录
 
-### 错误码
-
-| 错误码 | 错误类型                                        |
-| ------ | ----------------------------------------------- |
-| 1      | Command Group Error                             |
-| 2      | Command Not Found                               |
-| 3      | The Controller is busy now                      |
-| 4      | Out of the Memory Volume                        |
-| 5      | CRC16 Checksum Error                            |
-| 6      | File Not Exist                                  |
-| 7      | Flash Access Error                              |
-| 8      | File Download Error                             |
-| 9      | Filename Error                                  |
-| 10     | File type Error                                 |
-| 11     | File CRC16 Error                                |
-| 12     | Font Library Not Exist                          |
-| 13     | Firmware Type Error (Check the controller type) |
-| 14     | Date Time format error                          |
-| 15     | File Exist for File overwrite                   |
-| 16     | File block number error                         |
-| 100    | /通信失败                                       |
-| 101    | 协议数据不正确                                  |
-| 102    | 通信超时                                        |
-| 103    | 通信断开                                        |
-| 104    | 无效句柄                                        |
-| 105    | 参数错误                                        |
-| 106    | 需要重复上次数据包                              |
-| 107    | 无效文件                                        |
-| 0      | No Error                                        |
-
 ### 控制器类型
 
 | 控制卡型号 | 控制卡型号值 |
