@@ -101,10 +101,6 @@ Public Class Led5k
         Dim DataLen As UInteger
     End Structure
 
-    'Public Delegate Sub CallBackClientClose(ByVal hand As Integer, ByVal err As Integer)
-    'Public Declare Function InitSdk Lib "D:\work\b0080\trunk\Led5kSDK\Led5kSDKvb\Led5kSDK.dll" (ByVal minorVer As Byte, ByVal majorVer As Byte)
-    'Public Declare Function CreateClient Lib "D:\work\b0080\trunk\Led5kSDK\Led5kSDKvb\Led5kSDK.dll" (ByVal led_ip As Byte[], ByVal led_port As Integer,Optional card_type As bx_5k_card_type , Optional pC As CallBackClientClose ) As Integer
-    'Public Declare Function SetTimeout Lib "D:\work\b0080\trunk\Led5kSDK\Led5kSDKvb\Led5kSDK.dll" (ByVal dwHand As Byte, ByVal nSec As Byte) As Integer
     Public Declare Function InitSdk Lib "Led5kSDK.dll" (ByVal minorVer As Byte, ByVal majorVer As Byte) As Long '初始化函数库
     Public Declare Function ReleaseSdk Lib "Led5kSDK.dll" () As Long '释放函数库
     Public Declare Function callbackclientclose Lib "Led5kSDK.dll" (ByVal hand As Long, ByVal err As Integer) As Long '回调函数
@@ -119,4 +115,13 @@ Public Class Led5k
     Public Declare Auto Function SCREEN_SendDynamicArea Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal header As bx_5k_area_header, ByVal TextLen As UInteger, ByVal AreaText() As Byte) As Integer
     'Public Declare Auto Function SCREEN_SendDynamicArea Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByRef header As bx_5k_area_header, ByVal TextLen As UInteger, ByVal AreaText As String) As Integer
 
+    Public Declare Auto Function SCREEN_SetBrightness Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal BrightnessType As Byte, ByVal CurrentBrightness As Byte, ByVal BrightnessValue() As Byte) As Integer
+    Public Declare Auto Function SCREEN_LockProgram Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal LockFlag As Byte, ByVal StoreMode As Byte, ByVal ProgramFileName() As Byte) As Integer
+    Public Declare Auto Function SCREEN_DelDynamicArea Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal DeleteAreaId As Byte) As Integer
+
+    Public Declare Auto Function OFS_SendFileData Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal overwrite As Byte, ByVal pFileName() As Byte, ByVal DisplayType As Integer, ByVal PlayTimes As Byte,
+            ByVal ProgramLife() As Byte, ByVal ProgramWeek As Byte, ByVal ProgramTime As Byte, ByVal Period() As Byte, ByVal AreaNum As Byte, ByVal AreaDataList() As Byte, ByVal AreaDataListLen As Integer) As Integer
+    Public Declare Auto Function OFS_DeleteFile Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal FileNumber As Integer, ByVal pFileNameList() As Byte) As Integer
+
+    Public Declare Auto Function CON_SytemClockCorrect Lib "Led5kSDK.dll" (ByVal dwHand As Integer) As Integer
 End Class

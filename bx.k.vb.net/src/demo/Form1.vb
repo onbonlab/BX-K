@@ -4,10 +4,24 @@ Imports System.Runtime.InteropServices
 Public Class Form1
     Dim hand As Integer
     Dim err As Double
+
+    ''' <summary>
+    ''' 结构体转换成字节数组
+    ''' </summary>
+    ''' <param name="oStructure">要转化的结构体</param>
+    Public Function StructureToByteArray(ByVal oStructure As Object) As Byte()
+        Dim oSize As Integer = Marshal.SizeOf(oStructure)
+        Dim tByte(oSize - 1) As Byte
+        Dim tPtr As IntPtr = Marshal.AllocHGlobal(oSize)
+        Marshal.StructureToPtr(oStructure, tPtr, False)
+        Marshal.Copy(tPtr, tByte, 0, oSize)
+        Marshal.FreeHGlobal(tPtr)
+        Return tByte
+    End Function
+
+
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Led5k.InitSdk(2, 2)
-        Dim nResult As Long
-        'nResult = Led5k.InitSdk(2, 2)
         Dim str As String = "192.168.89.122"
         Dim bName() As Byte
         Dim code As Encoding = Encoding.ASCII
@@ -47,7 +61,7 @@ Public Class Form1
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         Dim AreaText As String
         Dim code As Encoding = Encoding.GetEncoding("gb2312")
-        Dim str(), font() As Byte
+        Dim str() As Byte
         AreaText = "Hello,123"
         str = code.GetBytes(AreaText)
 
@@ -74,5 +88,101 @@ Public Class Form1
 
         err = Led5k.SCREEN_SendDynamicArea(hand, header, header.DataLen, str)
         Label1.Text = CStr(err)
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        Dim BrightnessValue(48) As Byte
+        For intCount As Integer = 0 To 48
+            BrightnessValue(intCount) = 0
+        Next
+        err = Led5k.SCREEN_SetBrightness(hand, 1, 15, BrightnessValue)
+    End Sub
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+        Dim BrightnessValue(48) As Byte
+        For intCount As Integer = 0 To 48
+            '30分钟一个时间段，取值0-15
+            BrightnessValue(intCount) = 10
+        Next
+        err = Led5k.SCREEN_SetBrightness(hand, 2, 0, BrightnessValue)
+    End Sub
+
+    Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
+        Dim AreaText As String
+        Dim code As Encoding = Encoding.GetEncoding("GBK")
+        Dim name() As Byte
+        AreaText = "P000"
+        name = code.GetBytes(AreaText)
+        err = Led5k.SCREEN_LockProgram(hand, 1, 0, name)
+    End Sub
+
+    Private Sub Button8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button8.Click
+        Dim AreaText As String
+        Dim code As Encoding = Encoding.GetEncoding("GBK")
+        Dim name() As Byte
+        AreaText = "P000"
+        name = code.GetBytes(AreaText)
+        err = Led5k.SCREEN_LockProgram(hand, 0, 0, name)
+    End Sub
+
+    Private Sub Button9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
+        err = Led5k.SCREEN_DelDynamicArea(hand, 255)
+    End Sub
+
+    Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click
+        Dim AreaText As String
+        Dim code As Encoding = Encoding.GetEncoding("GBK")
+        Dim str(), FileName(), ProgramLife(8), Period(7) As Byte
+        AreaText = "P000"
+        FileName = code.GetBytes(AreaText)
+        For intCount As Integer = 0 To 8
+            ProgramLife(intCount) = 255
+        Next
+        For intCount As Integer = 0 To 7
+            Period(intCount) = 0
+        Next
+        Dim header As Led5k.bx_5k_area_header
+
+        AreaText = "中文测试"
+        str = code.GetBytes(AreaText)
+        header.AreaType = 0
+        header.AreaX = 0
+        header.AreaY = 0
+        header.AreaWidth = 8
+        header.AreaHeight = 32
+        header.DynamicAreaLoc = 255
+        header.Lines_sizes = 0
+        header.RunMode = 0
+        header.Timeout = 0
+        header.Reserved1 = 0
+        header.Reserved2 = 0
+        header.Reserved3 = 0
+        header.SingleLine = 1
+        header.NewLine = 1
+        header.DisplayMode = 1
+        header.ExitMode = 0
+        header.Speed = 0
+        header.StayTime = 10
+        header.DataLen = str.Length
+        Dim bytess() = StructureToByteArray(header)
+
+        Dim SendBuf() As Byte
+        ReDim SendBuf(bytess.Length + str.Length - 1)
+        Array.Copy(bytess, SendBuf, bytess.Length)
+        Array.Copy(str, 0, SendBuf, bytess.Length, str.Length)
+        err = Led5k.OFS_SendFileData(hand, 1, FileName, 0, 1, ProgramLife, 1, 0, Period, 1, SendBuf, SendBuf.Length)
+    End Sub
+
+    Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button11.Click
+        Dim AreaText As String
+        Dim code As Encoding = Encoding.GetEncoding("GBK")
+        Dim name() As Byte
+        AreaText = "P000"
+        name = code.GetBytes(AreaText)
+        err = Led5k.OFS_DeleteFile(hand, 1, name)
+    End Sub
+
+    Private Sub Button12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button12.Click
+        err = Led5k.CON_SytemClockCorrect(hand)
     End Sub
 End Class
