@@ -1,15 +1,15 @@
 # BX-5K/6K CSharp SDK
-本项目为仰邦科技 BX-5K/6K 系列的 CSharp 实现，调用仰邦封装的动态库文件，任何人都可直接在此代码上进行添加与修改。
+本项目为仰邦科技 BX-5K/6K 系列的 C++ 实现，调用仰邦封装的动态库文件，任何人都可直接在此代码上进行添加与修改。
 
 本项目由Visual Stuio 2010编写， 本 demo 中提供了 TCP 模式和RS485/232的简单使用方式。
 
 * Delphi代码
 
-  https://github.com/onbonlab/bx.k.delphi/blob/master/src/MainFrm.pas
+  https://github.com/onbonlab/bx.k.cplus/blob/master/src/MainFrm.pas
 
 * 可执行程序
 
-  https://github.com/onbonlab/bx.k.delphi/releases
+  https://github.com/onbonlab/bx.k.cplus/releases
 
 
 
