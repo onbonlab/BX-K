@@ -5,7 +5,7 @@
 
 * Delphi代码
 
-  https://github.com/onbonlab/bx.k.cplus/blob/master/src/MainFrm.pas
+  https://github.com/onbonlab/bx.k.cplus/blob/master/src/Led5kSDKDemo.cpp
 
 * 可执行程序
 
