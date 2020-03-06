@@ -54,7 +54,7 @@ ReleaseSdk();
 
 ## 使用例程
 
-```
+```Delphi
 //初始化动态库
 InitSdk(2,2);
 
