@@ -124,4 +124,6 @@ Public Class Led5k
     Public Declare Auto Function OFS_DeleteFile Lib "Led5kSDK.dll" (ByVal dwHand As Integer, ByVal FileNumber As Integer, ByVal pFileNameList() As Byte) As Integer
 
     Public Declare Auto Function CON_SytemClockCorrect Lib "Led5kSDK.dll" (ByVal dwHand As Integer) As Integer
+    '查询控制器状态
+    Public Declare Auto Function CON_ControllerStatus Lib "Led5kSDK.dll" (ByVal dwHand As Integer, byte[] pStatus, ByRef len As UShort) As Integer
 End Class
